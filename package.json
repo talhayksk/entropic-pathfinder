@@ -1,0 +1,65 @@
+{
+  "name": "entropic-pathfinder",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "electron/main.cjs",
+  "author": {
+    "name": "Talha YÜKSEK",
+    "email": "talha.yuksek@hotmail.com"
+  },
+  "description": "Entropic PathFinder",
+  "scripts": {
+    "clean": "node -e \"const fs = require('fs'); fs.rmSync('dist-build', { recursive: true, force: true }); fs.rmSync('dist-electron-build', { recursive: true, force: true });\"",
+    "dev": "concurrently \"vite\" \"electron .\"",
+    "build": "vite build",
+    "build:win": "npm run clean && vite build && electron-builder --win",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "electron": "electron ."
+  },
+  "build": {
+    "appId": "com.winget.manager",
+    "productName": "Winget Manager",
+    "directories": {
+      "output": "dist-electron-build"
+    },
+    "files": [
+      "dist-build/**/*",
+      "electron/**/*"
+    ],
+    "win": {
+      "target": [
+        "nsis",
+        "portable"
+      ],
+      "icon": "electron/icon.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@tailwindcss/postcss": "^4.1.17",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "autoprefixer": "^10.4.22",
+    "concurrently": "^9.2.1",
+    "electron": "^39.2.4",
+    "electron-builder": "^26.0.12",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.17",
+    "vite": "^7.2.4"
+  }
+}
