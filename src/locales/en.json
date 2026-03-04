@@ -44,6 +44,7 @@
         "update": "Update",
         "updating": "Updating...",
         "installed": "Installed",
-        "updatesFound": "{{count}} update(s) available"
+        "updatesFound": "{{count}} update(s) available",
+        "checkUpdates": "Check for Updates"
     }
 }
