@@ -120,3 +120,36 @@ ipcMain.handle('winget-upgrade-all', async (event) => {
         });
     });
 });
+
+ipcMain.handle('winget-list-installed', async (event, ids) => {
+    return new Promise((resolve, reject) => {
+        const command = `chcp 65001 >nul & winget list --accept-source-agreements`;
+        console.log(`Executing: ${command}`);
+
+        exec(command, { encoding: 'utf8', env: { ...process.env, COLUMNS: '4096' } }, (error, stdout, stderr) => {
+            if (error && !stdout) {
+                console.error(`exec error: ${error}`);
+                reject(stderr || error.message);
+                return;
+            }
+            // Return the raw output so the renderer can parse it
+            resolve(stdout);
+        });
+    });
+});
+
+ipcMain.handle('winget-uninstall', async (event, id) => {
+    return new Promise((resolve, reject) => {
+        const command = `chcp 65001 >nul & winget uninstall --id "${id}" --accept-source-agreements`;
+        console.log(`Executing: ${command}`);
+
+        exec(command, { encoding: 'utf8', env: { ...process.env, COLUMNS: '4096' } }, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`exec error: ${error}`);
+                reject(stderr || error.message);
+                return;
+            }
+            resolve(stdout);
+        });
+    });
+});
